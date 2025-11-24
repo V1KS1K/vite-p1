@@ -1,23 +1,41 @@
-import './TechnologyCard.css';
+import { Link } from 'react-router-dom';
 
-function TechnologyCard({ title, description, status }) {
+function TechnologyCard({ technology }) {
+  const { id, title, description, status } = technology;
+
+  const statusColors = {
+    'completed': 'var(--success)',
+    'in-progress': 'var(--warning)',
+    'not-started': 'var(--danger)'
+  };
+
+  const statusLabels = {
+    'completed': '✅ Изучено',
+    'in-progress': '🔄 В процессе',
+    'not-started': '⏳ Не начато'
+  };
+
   return (
-    <div className={`technology-card status-${status}`}>
-      <div className="tech-header">
-        <h3>{title}</h3>
-        <span className={`status-badge ${status}`}>
-          {status === 'completed' && '✅'}
-          {status === 'in-progress' && '🔄'}
-          {status === 'not-started' && '⏳'}
-        </span>
+    <div style={{
+      borderLeft: `4px solid ${statusColors[status] || 'gray'}`,
+      paddingLeft: '15px',
+      display: 'flex',
+      flexDirection: 'column',
+      height: '100%'
+    }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'start' }}>
+        <h3 style={{ margin: '0 0 10px 0', color: 'var(--text-main)' }}>{title}</h3>
       </div>
-      <p>{description}</p>
-      <div className="tech-footer">
-        <span className="status-text">
-          {status === 'completed' && 'Изучено'}
-          {status === 'in-progress' && 'В процессе'}
-          {status === 'not-started' && 'Не начато'}
+      
+      <p style={{ color: 'var(--text-muted)', flex: 1 }}>{description}</p>
+      
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '15px' }}>
+        <span style={{ color: statusColors[status], fontSize: '0.9rem', fontWeight: 'bold' }}>
+          {statusLabels[status]}
         </span>
+        <Link to={`/technology/${id}`}>
+          <button style={{ padding: '5px 10px', fontSize: '0.9rem' }}>Info →</button>
+        </Link>
       </div>
     </div>
   );

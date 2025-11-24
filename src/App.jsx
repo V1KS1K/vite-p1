@@ -1,72 +1,57 @@
-import './App.css';
-import Greeting from './Greeting';
-import UserCard from './UserCard';
-import TaskList from './TaskList';
-import TechnologyCard from './components/TechnologyCard';
-import ProgressHeader from './components/ProgressHeader';
-import { useState } from 'react';
+import Statistics from './pages/Statistics'; // НОВЫЙ ИМПОРТ
+import { Routes, Route, BrowserRouter as Router } from 'react-router-dom';
+import { ThemeProvider } from './context/ThemeContext';
+import { AuthProvider } from './context/AuthContext'; // НОВЫЙ КОНТЕКСТ
+import Navigation from './components/Navigation';
+import ProtectedRoute from './components/ProtectedRoute'; // НОВЫЙ КОМПОНЕНТ
+import Home from './pages/Home';
+import Technologies from './pages/Technologies';
+import TechDetail from './pages/TechDetail';
+import Community from './pages/Community';
+import Contact from './pages/Contact';
+import Login from './pages/Login'; // НОВАЯ СТРАНИЦА
+import Dashboard from './pages/Dashboard'; // НОВАЯ СТРАНИЦА
+import NotFound from './pages/NotFound';
 
 function App() {
-  const [technologies, setTechnologies] = useState([
-    { 
-      id: 1, 
-      title: 'React Components', 
-      description: 'Изучение базовых компонентов и их жизненного цикла', 
-      status: 'completed' 
-    },
-    { 
-      id: 2, 
-      title: 'JSX Syntax', 
-      description: 'Освоение синтаксиса JSX и его особенностей', 
-      status: 'in-progress' 
-    },
-    { 
-      id: 3, 
-      title: 'State Management', 
-      description: 'Работа с состоянием компонентов через useState', 
-      status: 'not-started' 
-    },
-    { 
-      id: 4, 
-      title: 'Props System', 
-      description: 'Передача данных между компонентами через props', 
-      status: 'not-started' 
-    },
-    { 
-      id: 5, 
-      title: 'Event Handling', 
-      description: 'Обработка событий в React компонентах', 
-      status: 'not-started' 
-    }
-  ]);
-
   return (
-    <div className="App">
-      <Greeting />
-      
-      <ProgressHeader technologies={technologies} />
-      
-      <div className="technologies-section">
-        <h2>Дорожная карта изучения</h2>
-        {technologies.map(tech => (
-          <TechnologyCard
-            key={tech.id}
-            title={tech.title}
-            description={tech.description}
-            status={tech.status}
-          />
-        ))}
-      </div>
+    <ThemeProvider>
+      {/* Обертываем все приложение в AuthProvider, чтобы использовать логику авторизации */}
+      {/* NOTE: AuthProvider должен находиться внутри Router (main.jsx), но мы его положили здесь, 
+         потому что useNavigate() внутри AuthContext требует, чтобы роутер был выше.
+         Чтобы избежать проблем, нужно обернуть в Router в main.jsx, а потом использовать AuthProvider здесь. */}
+      <AuthProvider>
+        <div className="App">
+          <Navigation />
+          <div className="main-content">
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/technologies" element={<Technologies />} />
+              <Route path="/technology/:id" element={<TechDetail />} />
+              <Route path="/community" element={<Community />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/community" element={<Community />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/statistics" element={<Statistics />} /> {/* <--- НОВЫЙ МАРШРУТ */}
 
-      <UserCard
-        name="Иван Иванов"
-        role="Администратор"
-        avatarUrl="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face"
-        isOnline={true}
-      />
+              {/* ЗАЩИЩЕННЫЙ МАРШРУТ (Pract 23) */}
+              <Route
+                path="/dashboard"
+                element={
+                  <ProtectedRoute>
+                    <Dashboard />
+                  </ProtectedRoute>
+                }
+              />
 
-      <TaskList />
-    </div>
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </div>
+        </div>
+      </AuthProvider>
+    </ThemeProvider>
   );
 }
 

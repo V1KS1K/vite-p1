@@ -11,31 +11,31 @@ function App() {
     { 
       id: 1, 
       title: 'React Components', 
-      description: 'Unreal in fortenite', 
+      description: 'Изучение базовых компонентов и их жизненного цикла', 
       status: 'completed' 
     },
     { 
       id: 2, 
       title: 'JSX Syntax', 
-      description: '1m $', 
+      description: 'Освоение синтаксиса JSX и его особенностей', 
       status: 'in-progress' 
     },
     { 
       id: 3, 
       title: 'State Management', 
-      description: 'Стать богаче илона маска', 
+      description: 'Работа с состоянием компонентов через useState', 
       status: 'not-started' 
     },
     { 
       id: 4, 
       title: 'Props System', 
-      description: 'полететь в черную дыру', 
+      description: 'Передача данных между компонентами через props', 
       status: 'not-started' 
     },
     { 
       id: 5, 
       title: 'Event Handling', 
-      description: 'Посмотреть наруто и ванпис за 1 присед', 
+      description: 'Обработка событий в React компонентах', 
       status: 'not-started' 
     }
   ]);

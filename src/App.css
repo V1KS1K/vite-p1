@@ -1,342 +1,154 @@
-/* Базовые стили для приложения */
-.App {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 20px;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  min-height: 100vh;
+:root {
+    --color-background: #192a56; 
+    --color-app-surface: #2c3e50; 
+    --color-text-light: #ecf0f1; 
+    --color-accent: #3498db; 
+    --color-accent-hover: #2980b9; 
+    --color-correct: #2ecc71; 
+    --color-restart: #e74c3c; 
+    --color-review: #9b59b6; 
 }
 
-/* Стили для компонента Greeting */
-.greeting {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
+body {
+    background-color: var(--color-background);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+}
+
+.app {
+  background-color: var(--color-app-surface);
+  width: 100%;
+  max-width: 550px;
+  min-height: 400px;
+  border-radius: 10px;
   padding: 30px;
-  border-radius: 10px;
-  margin: 20px 0;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  text-align: center;
-  width: 100%;
-  max-width: 800px;
-}
-
-.greeting h1 {
-  margin: 0 0 10px 0;
-  font-size: 2em;
-}
-
-.greeting p {
-  margin: 0;
-  font-size: 1.1em;
-  opacity: 0.9;
-}
-
-/* Стили для компонента UserCard */
-.user-card {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 20px;
-  background: white;
-  border: 2px solid #eee0e0;
-  border-radius: 10px;
-  padding: 20px;
-  margin: 20px auto;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  transition: transform 0.2s, box-shadow 0.2s;
-  max-width: 400px;
-  width: 100%;
+  color: var(--color-text-light);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.user-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-}
-
-.avatar-section {
-  text-align: center;
-}
-
-.avatar-section img {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 3px solid #667eea;
-}
-
-.avatar-section p {
-  margin-top: 10px;
-  font-size: 0.9em;
-  color: #666;
-}
-
-.user-info {
-  text-align: center;
-}
-
-.user-info h3 {
-  margin: 0 0 10px 0;
-  color: #333;
-  font-size: 1.3em;
-}
-
-.user-info p {
-  margin: 0;
-  color: #666;
-  font-size: 1em;
-}
-
-/* Стили для компонента TaskList */
-.task-list {
-  background: white;
-  border-radius: 10px;
-  padding: 20px;
-  margin: 20px auto;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  max-width: 600px;
-  text-align: center;
-  width: 100%;
-}
-
-.task-list h2 {
-  margin: 0 0 20px 0;
-  color: #333;
-  font-size: 1.5em;
-}
-
-.task-list ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.task-list li {
+.score-section {
   display: flex;
-  justify-content: space-between;
+  font-size: 24px;
   align-items: center;
-  padding: 15px;
-  margin: 10px 0;
-  border-radius: 5px;
-  transition: background-color 0.2s;
-  text-align: left;
-}
-
-.task-list li.completed {
-  background-color: #e8f5e9;
-  border-left: 4px solid #4caf50;
-}
-
-.task-list li.pending {
-  background-color: #fff3e0;
-  border-left: 4px solid #ff9800;
-}
-
-.task-list li:hover {
-  opacity: 0.8;
-}
-
-.task-list span {
-  flex: 1;
-  color: #333;
-}
-
-/* Стили для секции технологий */
-.technologies-section {
-  margin: 30px 0;
-  text-align: center;
-  width: 100%;
-  display: flex;
   flex-direction: column;
-  align-items: center;
+  text-align: center;
 }
 
-.technologies-section h2 {
-  color: #333;
+.question-section {
+  width: 100%;
   margin-bottom: 20px;
-  font-size: 1.8em;
 }
 
-/* Стили для TechnologyCard */
-.technology-card {
-  background: white;
-  border-radius: 10px;
-  padding: 20px;
-  margin: 15px auto;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  border-left: 4px solid #ccc;
-  transition: all 0.3s ease;
-  max-width: 600px;
-  text-align: center;
-  width: 100%;
+.question-count {
+  margin-bottom: 25px;
+  font-size: 16px;
+  color: #bdc3c7;
 }
 
-.technology-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+.question-count span {
+  font-size: 30px;
+  font-weight: bold;
+  color: var(--color-accent);
 }
 
-.tech-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 10px;
-}
-
-.tech-header h3 {
-  margin: 0;
-  color: #333;
-  font-size: 1.2em;
-}
-
-.status-badge {
-  font-size: 1.2em;
-}
-
-.technology-card p {
-  margin: 0 0 15px 0;
-  color: #666;
-  line-height: 1.5;
-  text-align: left;
-}
-
-.tech-footer {
-  display: flex;
-  justify-content: center;
-}
-
-.status-text {
-  font-size: 0.9em;
-  color: #888;
+.question-text {
+  font-size: 22px;
   font-weight: 500;
 }
 
-/* Стили для разных статусов TechnologyCard */
-.status-completed {
-  border-left-color: #4caf50;
-  background-color: #f8fff8;
-}
-
-.status-in-progress {
-  border-left-color: #ff9800;
-  background-color: #fffaf0;
-}
-
-.status-not-started {
-  border-left-color: #f44336;
-  background-color: #fff5f5;
-}
-
-/* Стили для ProgressHeader */
-.progress-header {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  padding: 25px;
-  border-radius: 10px;
-  margin: 20px auto;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  max-width: 800px;
+.answer-section {
   width: 100%;
-}
-
-.progress-header h2 {
-  margin: 0 0 20px 0;
-  text-align: center;
-  font-size: 1.6em;
-}
-
-.progress-bar {
-  background: rgba(255, 255, 255, 0.3);
-  border-radius: 10px;
-  height: 30px;
-  margin: 20px 0;
-  overflow: hidden;
-  position: relative;
-}
-
-.progress-fill {
-  background: linear-gradient(90deg, #4caf50, #45a049);
-  height: 100%;
-  border-radius: 10px;
-  transition: width 0.5s ease;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 50px;
+  flex-direction: column;
+  gap: 10px;
 }
 
-.progress-text {
-  color: white;
-  font-weight: bold;
-  font-size: 0.9em;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
-}
-
-.stats {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 15px;
-  margin-top: 20px;
-}
-
-.stat-item {
-  text-align: center;
-  background: rgba(255, 255, 255, 0.2);
-  padding: 15px 10px;
+button {
+  width: 100%;
+  font-size: 18px;
+  color: var(--color-text-light);
+  background-color: var(--color-app-surface);
   border-radius: 8px;
-  backdrop-filter: blur(10px);
+  display: flex;
+  padding: 15px 20px;
+  justify-content: flex-start;
+  align-items: center;
+  border: 2px solid var(--color-accent);
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.1s;
 }
 
-.stat-number {
-  display: block;
-  font-size: 1.8em;
-  font-weight: bold;
-  margin-bottom: 5px;
+button:hover {
+  background-color: var(--color-accent);
+  border-color: var(--color-accent-hover);
 }
 
-.stat-label {
-  font-size: 0.9em;
-  opacity: 0.9;
+button:active {
+    transform: scale(0.99);
 }
 
-/* Адаптивность для мобильных устройств */
-@media (max-width: 768px) {
-  .App {
-    padding: 10px;
-  }
-  
-  .stats {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  
-  .user-card {
-    max-width: 100%;
-  }
-  
-  .task-list {
-    max-width: 100%;
-  }
-  
-  .technology-card {
-    max-width: 100%;
-  }
-  
-  .progress-header {
-    max-width: 100%;
-  }
-  
-  .tech-header {
-    flex-direction: column;
-    gap: 10px;
-  }
-  
-  .technology-card p {
-    text-align: center;
-  }
+.restart-btn {
+  margin-top: 30px;
+  background-color: var(--color-restart);
+  color: var(--color-text-light);
+  font-weight: 700;
+  justify-content: center;
+  border: none;
+}
+
+.restart-btn:hover {
+  background-color: #c0392b;
+}
+
+.review-btn {
+    margin-top: 20px;
+    background-color: var(--color-review);
+    color: var(--color-text-light);
+    font-weight: 500;
+    justify-content: center;
+    border: none;
+    margin-bottom: 15px;
+}
+
+.review-btn:hover {
+    background-color: #8e44ad;
+}
+
+.answers-review-section {
+    width: 100%;
+    margin-top: 25px;
+    padding: 15px;
+    border: 1px solid var(--color-accent);
+    border-radius: 8px;
+    background-color: #34495e;
+    text-align: left;
+}
+
+.answers-review-section h3 {
+    margin-top: 0;
+    color: var(--color-accent);
+    border-bottom: 1px solid #444444;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+}
+
+.answer-item {
+    margin-bottom: 15px;
+    padding-bottom: 5px;
+}
+
+.answer-item strong {
+    color: var(--color-text-light);
+}
+
+.correct-answer {
+    color: var(--color-correct);
+    font-style: italic;
+    margin-left: 10px;
 }

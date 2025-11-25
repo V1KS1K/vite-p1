@@ -1,57 +1,142 @@
-import Statistics from './pages/Statistics'; // НОВЫЙ ИМПОРТ
-import { Routes, Route, BrowserRouter as Router } from 'react-router-dom';
-import { ThemeProvider } from './context/ThemeContext';
-import { AuthProvider } from './context/AuthContext'; // НОВЫЙ КОНТЕКСТ
-import Navigation from './components/Navigation';
-import ProtectedRoute from './components/ProtectedRoute'; // НОВЫЙ КОМПОНЕНТ
-import Home from './pages/Home';
-import Technologies from './pages/Technologies';
-import TechDetail from './pages/TechDetail';
-import Community from './pages/Community';
-import Contact from './pages/Contact';
-import Login from './pages/Login'; // НОВАЯ СТРАНИЦА
-import Dashboard from './pages/Dashboard'; // НОВАЯ СТРАНИЦА
-import NotFound from './pages/NotFound';
+import { useState } from 'react';
+import './App.css';
+
+const animeQuestions = [
+  {
+    questionText: 'В аниме "Фрирен, провожающая в последний путь", кого она увидела, когда она была с Ферн в лесу в котором демоны повторяли лик дорогого ей человека?',
+    answerOptions: [
+      { answerText: 'Айзен', isCorrect: false },
+      { answerText: 'Гиммель', isCorrect: true },
+      { answerText: 'Старк', isCorrect: false },
+      { answerText: 'Фламме', isCorrect: false },
+    ],
+  },
+  {
+    questionText: 'Как зовут главную героиню в аниме "Монолог фармацевта"?',
+    answerOptions: [
+      { answerText: 'Жэньши', isCorrect: false },
+      { answerText: 'Маомао', isCorrect: true },
+      { answerText: 'Гаошунь', isCorrect: false },
+      { answerText: 'Лахань', isCorrect: false },
+    ],
+  },
+  {
+    questionText: 'В аниме "Очень приятно, Бог", какое животное является хранителем Нанами?',
+    answerOptions: [
+      { answerText: 'Волк', isCorrect: false },
+      { answerText: 'Лиса', isCorrect: true },
+      { answerText: 'Змея', isCorrect: false },
+      { answerText: 'Енот', isCorrect: false },
+    ],
+  },
+  {
+    questionText: 'Какая основная профессия главной героини Энн Хэлфорд в "Сказке о сахарном яблоке"?',
+    answerOptions: [
+      { answerText: 'Сахарный Мастер', isCorrect: true },
+      { answerText: 'Повар', isCorrect: false },
+      { answerText: 'Перекупщица сладостей', isCorrect: false },
+      { answerText: 'Фермер яблонь', isCorrect: false },
+    ],
+  },
+  {
+    questionText: 'В аниме "Проживая 7-ю жизнь в качестве принцессы-заложницы", с кем в 1-й жизни Рише была?',
+    answerOptions: [
+      { answerText: 'С принцем Арнольдом', isCorrect: false },
+      { answerText: 'С купцом', isCorrect: true },
+      { answerText: 'С наемным убийцей', isCorrect: false },
+      { answerText: 'С доктором', isCorrect: false },
+    ],
+  },
+];
+
+const CorrectAnswersDisplay = ({ questions }) => (
+  <div className="answers-review-section">
+    <h3>Правильные ответы:</h3>
+    {questions.map((q, index) => {
+      const correctAnswer = q.answerOptions.find(option => option.isCorrect);
+      return (
+        <div key={index} className="answer-item">
+          <p><strong>{index + 1}. {q.questionText}</strong></p>
+          <p className="correct-answer">
+            Ответ: {correctAnswer ? correctAnswer.answerText : 'Не найден'}
+          </p>
+        </div>
+      );
+    })}
+  </div>
+);
 
 function App() {
+  const [currentQuestion, setCurrentQuestion] = useState(0);
+  const [showScore, setShowScore] = useState(false);
+  const [score, setScore] = useState(0);
+  const [showCorrectAnswers, setShowCorrectAnswers] = useState(false); 
+
+  const handleAnswerOptionClick = (isCorrect) => {
+    if (isCorrect) {
+      setScore(score + 1);
+    }
+
+    const nextQuestion = currentQuestion + 1;
+    
+    if (nextQuestion < animeQuestions.length) {
+      setCurrentQuestion(nextQuestion);
+    } else {
+      setShowScore(true);
+      setShowCorrectAnswers(false); 
+    }
+  };
+
+  const handleRestart = () => {
+    setScore(0);
+    setCurrentQuestion(0);
+    setShowScore(false);
+    setShowCorrectAnswers(false); 
+  };
+  
+  const toggleAnswers = () => {
+    setShowCorrectAnswers(!showCorrectAnswers);
+  };
+
   return (
-    <ThemeProvider>
-      {/* Обертываем все приложение в AuthProvider, чтобы использовать логику авторизации */}
-      {/* NOTE: AuthProvider должен находиться внутри Router (main.jsx), но мы его положили здесь, 
-         потому что useNavigate() внутри AuthContext требует, чтобы роутер был выше.
-         Чтобы избежать проблем, нужно обернуть в Router в main.jsx, а потом использовать AuthProvider здесь. */}
-      <AuthProvider>
-        <div className="App">
-          <Navigation />
-          <div className="main-content">
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/technologies" element={<Technologies />} />
-              <Route path="/technology/:id" element={<TechDetail />} />
-              <Route path="/community" element={<Community />} />
-              <Route path="/contact" element={<Contact />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/community" element={<Community />} />
-              <Route path="/contact" element={<Contact />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/statistics" element={<Statistics />} /> {/* <--- НОВЫЙ МАРШРУТ */}
+    <div className='app'>
+      {showScore ? (
+        <div className='score-section'>
+          <h2>Квиз завершен!</h2>
+          <p>Ваш результат: {score} из {animeQuestions.length} правильных ответов.</p>
+          
+          <button onClick={toggleAnswers} className="review-btn">
+            {showCorrectAnswers ? 'Скрыть ответы' : 'Показать правильные ответы'}
+          </button>
+          
+          <button onClick={handleRestart} className="restart-btn">Попробовать снова</button>
+          
+          {showCorrectAnswers && <CorrectAnswersDisplay questions={animeQuestions} />}
 
-              {/* ЗАЩИЩЕННЫЙ МАРШРУТ (Pract 23) */}
-              <Route
-                path="/dashboard"
-                element={
-                  <ProtectedRoute>
-                    <Dashboard />
-                  </ProtectedRoute>
-                }
-              />
-
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </div>
         </div>
-      </AuthProvider>
-    </ThemeProvider>
+      ) : (
+        <>
+          <div className='question-section'>
+            <div className='question-count'>
+              <span>Вопрос {currentQuestion + 1}</span>/{animeQuestions.length}
+            </div>
+            <div className='question-text'>
+              {animeQuestions[currentQuestion].questionText}
+            </div>
+          </div>
+          <div className='answer-section'>
+            {animeQuestions[currentQuestion].answerOptions.map((answerOption, index) => (
+              <button 
+                key={index} 
+                onClick={() => handleAnswerOptionClick(answerOption.isCorrect)}
+              >
+                {answerOption.answerText}
+              </button>
+            ))}
+          </div>
+        </>
+      )}
+    </div>
   );
 }
 
